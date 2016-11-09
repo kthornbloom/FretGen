@@ -1,0 +1,68 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+<title>Title</title>
+<meta name="description" content="Description">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/stylesheet.css">
+
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+
+<div class="wrapper">
+	<div class="settings">
+		<h1>Settings</h1>
+		<h2>Units</h2>
+			<label class="half-width">
+				<input type="radio" name="units" required><br>
+				Inches
+			</label>
+			<label class="half-width">
+				<input type="radio" name="units" required><br>
+				Centimeters
+			</label>
+		<h2>Scale</h2>
+			<label for="">
+				First String
+			</label>
+			<input type="number" value="25" step="0.5" required id="scale1">
+			<label for="">
+				Last String
+			</label>
+			<input type="number" value="25" step="0.5" required id="scale2">
+			<label for="">
+				Perpendicular fret
+			</label>
+			<input type="number" value="0" step="0.1" required>
+		<h2>Overall Size</h2>
+			<label for="">String width at nut</label>
+			<input type="number" value="1.375" step="0.025" required id="swn">
+			<label for="">String width at bridge</label>
+			<input type="number" value="2.125" step="0.025" required id="swb">
+			<label for="">Overhang at nut</label>
+			<input type="number" value="0.9375" step="0.025" required id="son">
+			<label for="">Overhang at bridge</label>
+			<input type="number" value="0.9375" step="0.001" required id="sob">
+		<h2>Quantities</h2>
+			<label for="">Frets</label>
+			<input type="number" step="1" value="24" required>
+			<label for="">Strings</label>
+			<input type="number" step="1" value="6" required>
+	</div>
+	<div class="result">
+		<canvas id="render">
+	
+		</canvas>
+	</div>
+</div>
+
+<body>
+	<script src="js/jquery-3.1.1.min.js"></script>
+	<script src="js/fretgen.js"></script>
+</body>
+</html>
