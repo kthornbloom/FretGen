@@ -13,7 +13,7 @@ $(".settings input").change(function () {
 });
 
 function drawFrets(){
-	var ratio = 20; //amt to enlarge 1px
+	var ratio = 80; //amt to enlarge 1px
 		// string width nut
 	var	swn = $('#swn').val() * ratio,
 		// string width bridge
@@ -47,11 +47,20 @@ function drawFrets(){
 
 	var	ctx = canvas.getContext('2d');
 
+	// draw width
+	ctx.beginPath();
+	ctx.moveTo(center - (swn/2),0);
+	ctx.lineTo((center + (swn / 2)), 0);
+	ctx.strokeStyle = 'blue';
+	ctx.lineWidth=5;
+	ctx.stroke();
+
 	// draw center line
 	ctx.beginPath();
 	ctx.moveTo(center,0);
 	ctx.lineTo(center, height);
 	ctx.strokeStyle = '#ccc';
+	ctx.lineWidth=1;
 	ctx.stroke();
 
 	// Draw Strings
@@ -61,20 +70,13 @@ function drawFrets(){
 			// Add to the smaller of the scale sizes
 			stringLength = stringLength + Math.min(scale1, scale2);
 
-		// If current string is the middle string
-		if (i == Math.ceil(stringCount / 2)) {
-			var nutX = center;
-		// or if it's above the middle & even # strings
-		} else if (i > stringCount / 2 && stringCount % 2 === 0) {
-			var nutX = 0;
-		}
-
 		ctx.beginPath();
-		ctx.moveTo(((i * stringSpacenut)/2) + center, 0);
-		ctx.lineTo(0 + (stringSpacebridge * i), stringLength);
+		ctx.moveTo((i * stringSpacenut) + (center - (swn / 2)), 0);
+		ctx.lineTo((i * stringSpacebridge) + (center - (swb / 2)), stringLength);
 		ctx.strokeStyle = 'red';
 		ctx.stroke();
 	}
+	
 }
 
 /*
