@@ -33,6 +33,7 @@
 	padding:30px;
 	text-align: center;
 	flex-grow:1;
+	background:#fff;
 }
 
 label, input {
@@ -84,5 +85,5 @@ input[type="radio"]:checked + label {
 }
 
 #render {
-	border:1px solid red;
+	box-shadow:0 0 10px rgba(0,0,0,.2);
 }
