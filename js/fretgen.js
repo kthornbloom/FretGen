@@ -13,7 +13,7 @@ $(".settings input").change(function () {
 });
 
 function drawFrets(){
-	var ratio = 80; //amt to enlarge 1px
+	var ratio = 96; //amt to enlarge 1px
 		// string width nut
 	var	swn = $('#swn').val() * ratio,
 		// string width bridge
@@ -47,47 +47,54 @@ function drawFrets(){
 
 	var	ctx = canvas.getContext('2d');
 
-	// draw width
-	ctx.beginPath();
-	ctx.moveTo(center - (swn/2),0);
-	ctx.lineTo((center + (swn / 2)), 0);
-	ctx.strokeStyle = 'blue';
-	ctx.lineWidth=5;
-	ctx.stroke();
-
 	// draw center line
 	ctx.beginPath();
 	ctx.moveTo(center,0);
 	ctx.lineTo(center, height);
 	ctx.strokeStyle = '#ccc';
-	ctx.lineWidth=1;
 	ctx.stroke();
 
 	// Draw Strings
 	for(var i = 0; i < stringCount; i++) {
-		// Get the non negative difference between scales, divide by # strings, times iteration
-		var stringLength = (Math.abs(scale1 - scale2) / stringCount) * i,
-			// Add to the smaller of the scale sizes
-			stringLength = stringLength + Math.min(scale1, scale2);
 
+		if (scale1 <= scale2){
+			var step = Math.abs(scale1 - scale2) / (stringCount - 1),
+			stringLength = (step * i) + Math.min(scale1, scale2);
+		} else {
+			var step = Math.abs(scale1 - scale2) / (stringCount - 1),
+			stringLength = Math.max(scale1, scale2) - (step * i);
+		}
+		
+
+		var	stringY = (height - stringLength) * perpFret;
 		ctx.beginPath();
-		ctx.moveTo((i * stringSpacenut) + (center - (swn / 2)), 0);
-		ctx.lineTo((i * stringSpacebridge) + (center - (swb / 2)), stringLength);
+		ctx.moveTo((i * stringSpacenut) + (center - (swn / 2)), stringY);
+		ctx.lineTo((i * stringSpacebridge) + (center - (swb / 2)), stringLength + stringY);
 		ctx.strokeStyle = 'red';
 		ctx.stroke();
 	}
-	
+
+	// Draw left fretboard edge
+	if (scale1 <= scale2){
+			var step = Math.abs(scale1 - scale2) / (stringCount - 1),
+			stringLength = Math.min(scale1, scale2) - step;
+		} else {
+			var step = Math.abs(scale1 - scale2) / (stringCount - 1),
+			stringLength = Math.max(scale1, scale2) + step;
+		}
+		
+		/*
+			^ mk  v not mk
+		*/
+
+		var	stringY = (height - stringLength) * perpFret;
+		ctx.beginPath();
+		ctx.moveTo((i * stringSpacenut) + (center - (swn / 2)), stringY);
+		ctx.lineTo((i * stringSpacebridge) + (center - (swb / 2)), stringLength + stringY);
+		ctx.strokeStyle = 'purple';
+		ctx.stroke();
+
+	// Draw left fretboard edge
+
+	// Draw Frets
 }
-
-/*
-// draw outer fretboard lines
-	for(var i = 0; i < stringCount; i++) {
-		var stringLength = (Math.abs(scale1 - scale2) / stringCount) * i,
-			stringLength = stringLength + Math.min(scale1, scale2);
-		ctx.beginPath();
-		ctx.moveTo(0 + (stringSpacenut * i), 0);
-		ctx.lineTo(0 + (stringSpacebridge * i), stringLength);
-		ctx.strokeStyle = 'red';
-		ctx.stroke();
-	}
-*/
