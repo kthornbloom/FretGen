@@ -38,6 +38,8 @@ function drawFrets(){
 		perpFret = $('#perp').val(),
 		// number of strings
 		stringCount = $('#stringcount').val(),
+		// number of frets
+		fretCount = $('#fretcount').val(),
 		stringSpacenut = swn / (stringCount - 1),
 		stringSpacebridge = swb / (stringCount - 1);
 
@@ -73,32 +75,36 @@ function drawFrets(){
 		ctx.stroke();
 	}
 
-	// Draw Fretboard Edges
-
-	var step = Math.abs((scale1 + offsetN + offsetB) - (scale2 + offsetN + offsetB)) / (stringCount + 1);
-
-	// STEP IS WRONG :( 
-
+	/* Draw Fretboard Edges
+	var step = offsetN;
 	if (scale1 <= scale2){
-			var leftLength = Math.min(scale1, scale2) - step,
-				rightLength = Math.max(scale1, scale2) + step;
-		} else {
-			var	leftLength = Math.max(scale1, scale2) + step,
-				rightLength = Math.min(scale1, scale2) - step;
-		}
+		var leftLength = Math.min(scale1, scale2) - step,
+			rightLength = Math.max(scale1, scale2) + step;
+	} else {
+		var	leftLength = Math.max(scale1, scale2) + step,
+			rightLength = Math.min(scale1, scale2) - step;
+	}
 
-		var	leftY = (height - leftLength) * perpFret,
-			rightY = (height - rightLength) * perpFret;
-		ctx.beginPath();
-		ctx.moveTo(center - (swn / 2) - offsetN, leftY);
-		ctx.lineTo(center - (swb / 2) - offsetB, leftLength + leftY);
-		ctx.lineTo(center + (swb / 2) + offsetB, rightLength + rightY);
-		ctx.lineTo(center + (swn / 2) + offsetN, rightY);
-		ctx.closePath();
-		ctx.strokeStyle = 'purple';
-		ctx.stroke();
+	var	leftY = (height - leftLength) * perpFret,
+		rightY = (height - rightLength) * perpFret;
+	ctx.beginPath();
+	ctx.moveTo(center - (swn / 2) - offsetN, leftY);
+	ctx.lineTo(center - (swb / 2) - offsetB, leftLength + leftY);
+	ctx.lineTo(center + (swb / 2) + offsetB, rightLength + rightY);
+	ctx.lineTo(center + (swn / 2) + offsetN, rightY);
+	ctx.closePath();
+	ctx.strokeStyle = 'purple';
+	ctx.stroke();
+	console.log(leftY);*/
 
-	// Draw left fretboard edge
-
+	var previousFret = (scale1 * .943878);
 	// Draw Frets
+	for(var i = 0; i < fretCount; i++) {
+		ctx.beginPath();
+		ctx.moveTo(0, scale1 - previousFret);
+		ctx.lineTo(width, scale1 - previousFret);
+		ctx.stroke();
+		
+		var previousFret = (previousFret * .943878);
+	}
 }
