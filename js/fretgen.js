@@ -42,7 +42,7 @@ function drawFrets(){
 		stringSpacebridge = swb / (stringCount - 1);
 
 	// Set overall width/height
-	$('#render').attr('height',height);
+	$('#render').attr('height',height + 50);
 	$('#render').attr('width',width);
 
 	var	ctx = canvas.getContext('2d');
@@ -51,18 +51,17 @@ function drawFrets(){
 	ctx.beginPath();
 	ctx.moveTo(center,0);
 	ctx.lineTo(center, height);
-	ctx.strokeStyle = '#ccc';
+	ctx.strokeStyle = 'blue';
 	ctx.stroke();
 
 	// Draw Strings
 	for(var i = 0; i < stringCount; i++) {
 
+		var step = Math.abs(scale1 - scale2) / (stringCount - 1);
 		if (scale1 <= scale2){
-			var step = Math.abs(scale1 - scale2) / (stringCount - 1),
-			stringLength = (step * i) + Math.min(scale1, scale2);
+			var stringLength = (step * i) + Math.min(scale1, scale2);
 		} else {
-			var step = Math.abs(scale1 - scale2) / (stringCount - 1),
-			stringLength = Math.max(scale1, scale2) - (step * i);
+			var stringLength = Math.max(scale1, scale2) - (step * i);
 		}
 		
 
@@ -74,23 +73,28 @@ function drawFrets(){
 		ctx.stroke();
 	}
 
-	// Draw left fretboard edge
-	if (scale1 <= scale2){
-			var step = Math.abs(scale1 - scale2) / (stringCount - 1),
-			stringLength = Math.min(scale1, scale2) - step;
-		} else {
-			var step = Math.abs(scale1 - scale2) / (stringCount - 1),
-			stringLength = Math.max(scale1, scale2) + step;
-		}
-		
-		/*
-			^ mk  v not mk
-		*/
+	// Draw Fretboard Edges
 
-		var	stringY = (height - stringLength) * perpFret;
+	var step = Math.abs((scale1 + offsetN + offsetB) - (scale2 + offsetN + offsetB)) / (stringCount + 1);
+
+	// STEP IS WRONG :( 
+
+	if (scale1 <= scale2){
+			var leftLength = Math.min(scale1, scale2) - step,
+				rightLength = Math.max(scale1, scale2) + step;
+		} else {
+			var	leftLength = Math.max(scale1, scale2) + step,
+				rightLength = Math.min(scale1, scale2) - step;
+		}
+
+		var	leftY = (height - leftLength) * perpFret,
+			rightY = (height - rightLength) * perpFret;
 		ctx.beginPath();
-		ctx.moveTo((i * stringSpacenut) + (center - (swn / 2)), stringY);
-		ctx.lineTo((i * stringSpacebridge) + (center - (swb / 2)), stringLength + stringY);
+		ctx.moveTo(center - (swn / 2) - offsetN, leftY);
+		ctx.lineTo(center - (swb / 2) - offsetB, leftLength + leftY);
+		ctx.lineTo(center + (swb / 2) + offsetB, rightLength + rightY);
+		ctx.lineTo(center + (swn / 2) + offsetN, rightY);
+		ctx.closePath();
 		ctx.strokeStyle = 'purple';
 		ctx.stroke();
 
