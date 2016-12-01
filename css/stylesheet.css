@@ -1,3 +1,4 @@
+/* Page Layout */
 .wrapper {
 	display: flex;
 	height:100vh;
@@ -34,7 +35,7 @@
 	text-align: center;
 	flex-grow:1;
 	background:#fff;
-	-webkit-filter:invert(1);
+	/*-webkit-filter:invert(1);*/
 }
 
 label, input {
@@ -80,11 +81,21 @@ input[type="radio"]:checked + label {
 	background: red!important;
 }
 
-.error {
-	background:#ec5c5c;
-	padding:10px;
-}
+/* Fretboard */
 
 #render {
-	box-shadow:0 0 0 1px rgba(0,0,0,1);
+	border:1px solid #ccc;
+	max-width: 170px;
+}
+
+.centerline {
+	stroke:#555;
+}
+
+.string {
+	stroke:blue;
+}
+
+.edge {
+	stroke:#555;
 }

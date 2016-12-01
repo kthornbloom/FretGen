@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
-<title>Title</title>
+<title></title>
 <meta name="description" content="Description">
 <link rel="stylesheet" href="css/reset.css">
 <link rel="stylesheet" href="css/stylesheet.css">
@@ -20,22 +20,22 @@
 		<h1>Settings</h1>
 		<h2>Units</h2>
 			<label class="half-width">
-				<input type="radio" name="units" required><br>
+				<input type="radio" name="units" disabled><br>
 				Inches
 			</label>
 			<label class="half-width">
-				<input type="radio" name="units" required><br>
+				<input type="radio" name="units" disabled><br>
 				Centimeters
 			</label>
 		<h2>Scale</h2>
 			<label for="">
 				First String
 			</label>
-			<input type="number" value="22" step="0.5" required id="scale1">
+			<input type="number" value="15" step="0.5" required id="scale1">
 			<label for="">
 				Last String
 			</label>
-			<input type="number" value="22" step="0.5" required id="scale2">
+			<input type="number" value="16" step="0.5" required id="scale2">
 			<label for="">
 				Perpendicular fret
 			</label>
@@ -51,13 +51,13 @@
 			<input type="number" value="0.09375" step="0.001" required id="sob">
 		<h2>Quantities</h2>
 			<label for="">Frets</label>
-			<input type="number" step="1" value="24" required id="fretcount">
+			<input type="number" step="1" value="18" required id="fretcount">
 			<label for="">Strings</label>
 			<input type="number" step="1" value="6" required id="stringcount">
 	</div>
 	<div class="result">
-		<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" width="200px" height="100px">
- </svg>
+		<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100"  id="render">
+		</svg>
  http://www.svgbasics.com/
 	</div>
 </div>
