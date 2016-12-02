@@ -3,7 +3,7 @@ $(document).ready(function(){
 	/* RUN THE FUNCTION
 	==============================================================*/
 	drawFrets();
-	$(".settings input").change(function () {
+	$(".settings input").on('change keyup paste', function () {
 		drawFrets();
 	});
 
@@ -90,20 +90,36 @@ $(document).ready(function(){
 						     overhang           ??  -> add to st1Y
 			*/
 		var	leftedgeX1 = (width / 2) - (swn/2 + offsetN),
-			leftedgeX2 = (width / 2) - (swb/2 + offsetB);
+			leftedgeX2 = (width / 2) - (swb/2 + offsetB),
+			rightedgeX1 = (width / 2) + (swn/2 + offsetN),
+			rightedgeX2 = (width / 2) + (swb/2 + offsetB);
+
 		if (firststringY1 >= laststringY1){
 			var leftedgeY1 = (firststringY1 + d),
-			leftedgeY2 = (firststringY2 - h);
+			leftedgeY2 = (firststringY2 + h),
+			rightedgeY1 = (laststringY1 - d),
+			rightedgeY2 = (laststringY2 - h);
 		} else {
 			var leftedgeY1 = (firststringY1 - d),
-			leftedgeY2 = (firststringY2 + h);
+			leftedgeY2 = (firststringY2 + h),
+			rightedgeY1 = (laststringY1 + d),
+			rightedgeY2 = (laststringY2 - h);
 		}
 
-		console.log('D:'+d+', firststringY1:'+firststringY1+', leftedgeY1:'+leftedgeY1+'');
-
-		$('#render').append('<path class="edge" d="M '+leftedgeX1+' '+leftedgeY1+' L '+leftedgeX2+' '+leftedgeY2+'" stroke="blue" stroke-width = "1"/>');
-
+		$('#render').append('<line class="leftedge" x1 = "'+leftedgeX1+'" y1 = "'+leftedgeY1+'" x2 = "'+leftedgeX2+'" y2 = "'+leftedgeY2+'" stroke = "black" stroke-width = "1"/>');
+		$('#render').append('<line class="rightedge" x1 = "'+rightedgeX1+'" y1 = "'+rightedgeY1+'" x2 = "'+rightedgeX2+'" y2 = "'+rightedgeY2+'" stroke = "black" stroke-width = "1"/>');
 		
+		/* FRETS
+		==============================================================*/
+		var a = Math.abs(leftedgeY1 - leftedgeY2),
+			b = Math.abs(leftedgeX1 - leftedgeX2),
+			c = offsetN,
+			d = parseInt((c*b)/a);
+
+		for(var i = 0; i < fretCount; i++) {
+
+		}
+
 		/*
 
 		var previousFret = (scale1 * .943878);

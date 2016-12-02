@@ -86,6 +86,7 @@ input[type="radio"]:checked + label {
 #render {
 	border:1px solid #ccc;
 	max-width: 170px;
+	overflow:visible;
 }
 
 .centerline {
