@@ -44,7 +44,7 @@ $(document).ready(function(){
 
 		/* CENTER LINE
 		==============================================================*/
-		$('#render').append('<line class="centerline" x1 = "'+center+'" y1 = "0" x2 = "'+center+'" y2 = "'+height+'" stroke = "black" stroke-dasharray="20, 5"  stroke-width = "1"/>');
+		$('#render').append('<line class="centerline" x1 = "'+center+'" y1 = "0" x2 = "'+center+'" y2 = "'+height+'" stroke = "black" stroke-dasharray="10, 10"  stroke-width = "1"/>');
 
 		/* STRINGS
 		==============================================================*/
@@ -94,11 +94,12 @@ $(document).ready(function(){
 			rightedgeX1 = (width / 2) + (swn/2 + offsetN),
 			rightedgeX2 = (width / 2) + (swb/2 + offsetB);
 
-		if (firststringY1 >= laststringY1){
+			// calculate depending on which side is longer
+		if ((firststringY1 - firststringY2) >= (laststringY1 - laststringY2)){
 			var leftedgeY1 = (firststringY1 + d),
-			leftedgeY2 = (firststringY2 + h),
+			leftedgeY2 = (firststringY2 - h),
 			rightedgeY1 = (laststringY1 - d),
-			rightedgeY2 = (laststringY2 - h);
+			rightedgeY2 = (laststringY2 + h);
 		} else {
 			var leftedgeY1 = (firststringY1 - d),
 			leftedgeY2 = (firststringY2 + h),
@@ -108,30 +109,39 @@ $(document).ready(function(){
 
 		$('#render').append('<line class="leftedge" x1 = "'+leftedgeX1+'" y1 = "'+leftedgeY1+'" x2 = "'+leftedgeX2+'" y2 = "'+leftedgeY2+'" stroke = "black" stroke-width = "1"/>');
 		$('#render').append('<line class="rightedge" x1 = "'+rightedgeX1+'" y1 = "'+rightedgeY1+'" x2 = "'+rightedgeX2+'" y2 = "'+rightedgeY2+'" stroke = "black" stroke-width = "1"/>');
+
+		/* NUT & BRIDGE
+		==============================================================*/
+
+		$('#render').append('<line class="nut" x1 = "'+leftedgeX1+'" y1 = "'+leftedgeY1+'" x2 = "'+rightedgeX1+'" y2 = "'+rightedgeY1+'" stroke = "black" stroke-width = "1"/>');
+
+		$('#render').append('<line class="bridge" x1 = "'+leftedgeX2+'" y1 = "'+leftedgeY2+'" x2 = "'+rightedgeX2+'" y2 = "'+rightedgeY2+'" stroke = "black" stroke-width = "1"/>');
 		
 		/* FRETS
 		==============================================================*/
 		var a = Math.abs(leftedgeY1 - leftedgeY2),
 			b = Math.abs(leftedgeX1 - leftedgeX2),
-			c = offsetN,
-			d = parseInt((c*b)/a);
+			c = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2)),
+			// c is the left sides's length
+			d = Math.abs(rightedgeY1 - rightedgeY2),
+			e = Math.abs(rightedgeX1 - rightedgeX2),
+			f = Math.sqrt(Math.pow(d, 2) + Math.pow(e, 2)),
+			// f is right sides's length,
+			leftRemainder =  (c * .943878),
+			rightRemainder = f * .943878;
+
+		var perpOffset = perpFret * (Math.abs(c - f));
+
+/* Fret Y is currently really the distance along the hypotenuse, not the real Y */
 
 		for(var i = 0; i < fretCount; i++) {
-
+			var fretX1 = 0,
+				 fretY1 = (perpOffset + (c - leftRemainder)),
+				 fretX2 = width,
+				 fretY2 = (perpOffset + (c - leftRemainder));
+			$('#render').append('<line rel="'+i+'" class="fret" x1 = "'+fretX1+'" y1 = "'+fretY1+'" x2 = "'+fretX2+'" y2 = "'+fretY2+'" stroke = "black" stroke-width = "1"/>');
+			var leftRemainder = (leftRemainder * .943878);
 		}
-
-		/*
-
-		var previousFret = (scale1 * .943878);
-
-		for(var i = 0; i < fretCount; i++) {
-			var fretX1 = ,
-				 fretY1 = ,
-				 fretX2 = ,
-				 fretY2 = ;
-			$('#render').append('<line class="fret" x1 = "'+fretX1+'" y1 = "'+fretY1+'" x2 = "'+fretX2+'" y2 = "'+fretY2+'" stroke = "black" stroke-width = "1"/>');
-		}
-		*/
 
 		// Refresh dat page to update SVG
 		$('.result').html($('.result').html());
