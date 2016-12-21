@@ -173,6 +173,20 @@ $(document).ready(function(){
 		$('.result').html($('.result').html());
 	}
 
+	function show_svg(evt) {
+	    var svg = document.getElementById("render");
+	    var serializer = new XMLSerializer();
+	    var svg_blob = new Blob([serializer.serializeToString(svg)],
+	                            {'type': "image/svg+xml"});
+	    var url = URL.createObjectURL(svg_blob);
+
+	    var svg_win = window.open(url, "svg_win");
+	}
+
+	$('.save').on('click', function(){
+		show_svg();
+	});
+
 	/* Modal stuff */
 	$('.tip').on('click', function(){
 		var info = $(this).attr('data-tip');
