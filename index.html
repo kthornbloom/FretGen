@@ -16,49 +16,67 @@
 </head>
 <body>
 <div class="wrapper">
-	<div class="settings">
-		<h1>Settings</h1>
-		<h2>Units</h2>
-			<label class="half-width">
-				<input type="radio" name="units" disabled><br>
-				Inches
-			</label>
-			<label class="half-width">
-				<input type="radio" name="units" disabled><br>
-				Centimeters
-			</label>
-		<h2>Scale</h2>
-			<label for="">
-				First String
-			</label>
-			<input type="number" value="16" step="0.5" required id="scale1">
-			<label for="">
-				Last String
-			</label>
-			<input type="number" value="12" step="0.5" required id="scale2">
-			<label for="">
-				Perpendicular fret
-			</label>
-			<input type="number" value="0" step="0.4" required id="perp">
-		<h2>Overall Size</h2>
-			<label for="">String width at nut</label>
-			<input type="number" value="1.375" step="0.025" required id="swn">
-			<label for="">String width at bridge</label>
-			<input type="number" value="2.125" step="0.025" required id="swb">
-			<label for="">Overhang at nut</label>
-			<input type="number" value="0.09375" step="0.025" required id="son">
-			<label for="">Overhang at bridge</label>
-			<input type="number" value="0.09375" step="0.001" required id="sob">
-		<h2>Quantities</h2>
-			<label for="">Frets</label>
-			<input type="number" step="1" value="18" required id="fretcount">
-			<label for="">Strings</label>
-			<input type="number" step="1" value="6" required id="stringcount">
-	</div>
-	<div class="result">
-		<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100"  id="render">
-		</svg>
-	</div>
+	<div class="left-sidebar">
+		<form id="input">
+			<h1>Settings</h1>
+			<!--
+			<h2>Units</h2>
+				<label class="half-width">
+					<input type="radio" name="units" disabled><br>
+					Inches
+				</label>
+				<label class="half-width">
+					<input type="radio" name="units" disabled><br>
+					Centimeters
+				</label>
+				-->
+			<h2>Scale</h2>
+				<label for="">
+					First String
+				</label>
+				<input type="number" value="9" step="0.5" required id="scale1">
+				<label for="">
+					Last String
+				</label>
+				<input type="number" value="5" step="0.5" required id="scale2">
+				<label for="">
+					Perpendicular fret
+				</label>
+				<input type="number" value="1" max="1" step="0.001" required id="perp">
+			<h2>Overall Size</h2>
+				<label for="">String width at nut</label>
+				<input type="number" value="1.375" step="any" min="0" required id="swn">
+				<label for="">String width at bridge</label>
+				<input type="number" value="2.125" step="any" min="0" required id="swb">
+				<label for="">Overhang at nut</label>
+				<input type="number" value="0.09375" step="any" min="0" required id="son">
+				<label for="">Overhang at bridge</label>
+				<input type="number" value="0.09375"  step="any" min="0" required id="sob">
+			<h2>Quantities</h2>
+				<label for="">Frets</label>
+				<input type="number" step="1" value="18" required id="fretcount">
+				<label for="">Strings</label>
+				<input type="number" step="1" value="6" required id="stringcount">
+			</form>
+		</div>
+		<div class="result">
+			<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100"  id="render">
+			</svg>
+		</div>
+		<div class="right-sidebar">
+			<h2>Tests</h2>
+			<ul>
+				<li>FS > LS, Perp 0, ON > OB</li>
+				<li>FS > LS, Perp 0, ON < OB</li>
+				<li>LS > FS, Perp 0, ON > OB</li>
+				<li>LS > FS, Perp 0, ON < OB</li>
+				<li>FS > LS, Perp 1, ON > OB</li>
+				<li>LS > FS, Perp 1, ON < OB</li>
+			</ul>
+			<a href="#" class="button button-secondary">Link to current design</a>
+			<a href="#" class="button button-secondary">Printable Version</a>
+			<a href="#" class="button button-primary">Download SVG</a>
+		</div>
 </div>
 
 

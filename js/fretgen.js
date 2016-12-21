@@ -3,8 +3,13 @@ $(document).ready(function(){
 	/* RUN THE FUNCTION
 	==============================================================*/
 	drawFrets();
-	$(".settings input").on('change keyup paste', function () {
-		drawFrets();
+	$("#input input").on('change keyup paste', function () {
+		if ($('#input')[0].checkValidity()) {
+			drawFrets();
+			$('.problem').removeClass('problem');
+		} else {
+			$('.result').addClass('problem');
+		}
 	});
 
 	function drawFrets(){
@@ -127,20 +132,38 @@ $(document).ready(function(){
 			e = Math.abs(rightedgeX1 - rightedgeX2),
 			f = Math.sqrt(Math.pow(d, 2) + Math.pow(e, 2)),
 			// f is right sides's length,
-			leftRemainder =  (c * .943878),
+			leftRemainder =  c * .943878,
 			rightRemainder = f * .943878;
 
 		var perpOffset = perpFret * (Math.abs(c - f));
 
-/* Fret Y is currently really the distance along the hypotenuse, not the real Y */
-
 		for(var i = 0; i < fretCount; i++) {
-			var fretX1 = 0,
-				 fretY1 = (perpOffset + (c - leftRemainder)),
-				 fretX2 = width,
-				 fretY2 = (perpOffset + (c - leftRemainder));
+			var	lefthypotenuse = (c - leftRemainder),
+				lefthypotenuseInvert = (leftRemainder),
+				righthypotenuse = (f - rightRemainder),
+				righthypotenuseInvert = (rightRemainder);
+
+			if (perpFret > 0 && c < f){
+				var fretX1 = (b * lefthypotenuseInvert) / c,
+					fretY1 = (a * lefthypotenuse) / c + perpOffset,
+					fretX2 = rightedgeX1 + ((e * righthypotenuse) / f),
+					fretY2 = (d * righthypotenuse) / f ;
+			} else if (perpFret > 0 && c > f){
+				/* FIX DIS */
+				var fretX1 = (b * lefthypotenuseInvert) / c,
+					fretY1 = (a * lefthypotenuse) / c,
+					fretX2 = rightedgeX1 + ((e * righthypotenuse) / f),
+					fretY2 = (d * righthypotenuse) / f + perpFret;
+			} else if (perpFret == 0) {
+				var fretX1 = (b * lefthypotenuseInvert) / c,
+					fretY1 = (a * lefthypotenuse) / c,
+					fretX2 = rightedgeX1 + ((e * righthypotenuse) / f),
+					fretY2 = (d * righthypotenuse) / f;
+			}
+
 			$('#render').append('<line rel="'+i+'" class="fret" x1 = "'+fretX1+'" y1 = "'+fretY1+'" x2 = "'+fretX2+'" y2 = "'+fretY2+'" stroke = "black" stroke-width = "1"/>');
-			var leftRemainder = (leftRemainder * .943878);
+			var leftRemainder = (leftRemainder * .943878),
+				rightRemainder = (rightRemainder * .943878);
 		}
 
 		// Refresh dat page to update SVG
