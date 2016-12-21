@@ -148,17 +148,20 @@ $(document).ready(function(){
 					fretY1 = (a * lefthypotenuse) / c + perpOffset,
 					fretX2 = rightedgeX1 + ((e * righthypotenuse) / f),
 					fretY2 = (d * righthypotenuse) / f ;
-			} else if (perpFret > 0 && c > f){
+				console.log('A');
+			} else if (perpFret > 0 && rightedgeY1 > leftedgeY1){
 				/* FIX DIS */
 				var fretX1 = (b * lefthypotenuseInvert) / c,
 					fretY1 = (a * lefthypotenuse) / c,
 					fretX2 = rightedgeX1 + ((e * righthypotenuse) / f),
-					fretY2 = (d * righthypotenuse) / f + perpFret;
+					fretY2 = ((d * righthypotenuse) / f) + perpOffset;
+					console.log('B');
 			} else if (perpFret == 0) {
 				var fretX1 = (b * lefthypotenuseInvert) / c,
 					fretY1 = (a * lefthypotenuse) / c,
 					fretX2 = rightedgeX1 + ((e * righthypotenuse) / f),
 					fretY2 = (d * righthypotenuse) / f;
+					console.log('C');
 			}
 
 			$('#render').append('<line rel="'+i+'" class="fret" x1 = "'+fretX1+'" y1 = "'+fretY1+'" x2 = "'+fretX2+'" y2 = "'+fretY2+'" stroke = "black" stroke-width = "1"/>');
@@ -169,6 +172,20 @@ $(document).ready(function(){
 		// Refresh dat page to update SVG
 		$('.result').html($('.result').html());
 	}
+
+	/* Modal stuff */
+	$('.tip').on('click', function(){
+		var info = $(this).attr('data-tip');
+		$('body').append('<div class="modal-wrap"><div class="modal">'+info+'<br><a href="#" class="button button-primary close-modal">OK</div></div></div>');
+		$('.modal-wrap').offset();
+		$('.modal-wrap').addClass('modal-visible');
+	});
+	$(document).on('click','.close-modal',function(){
+		$('.modal-wrap').removeClass('modal-visible');
+		setTimeout(function(){
+			$('.modal-wrap').remove();
+		}, 400);
+	});
 
 });
 

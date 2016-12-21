@@ -33,24 +33,35 @@
 			<h2>Scale</h2>
 				<label for="">
 					First String
+					<div class="tip" data-tip="<b>First String</b><br>This is the scale length (nut to bridge) of the first string. (Typically the thickest, lowest sounding string.)">?</div>
 				</label>
 				<input type="number" value="9" step="0.5" required id="scale1">
 				<label for="">
 					Last String
+					<div class="tip" data-tip="<b>Last String</b><br>This is the scale length (nut to bridge) of the last string. (Typically the thinnest, highest sounding string.)">?</div>
 				</label>
 				<input type="number" value="5" step="0.5" required id="scale2">
 				<label for="">
-					Perpendicular fret
+					Perpendicular Distance
+					<div class="tip" data-tip="<b>Perpendicular Distance (0 - 1)</b><br>Only used in multi-scale layouts, this is the fret which is at a 90° angle to the fretboard. <br><br>Use a value of 0 to make the nut flat, or 1 to make the bridge flat. A value of .5 will make the middle of the fretboard perpendicular.">?</div>
 				</label>
 				<input type="number" value="1" max="1" step="0.001" required id="perp">
 			<h2>Overall Size</h2>
-				<label for="">String width at nut</label>
+				<label for="">String width at nut
+					<div class="tip" data-tip="<b>String Width at Nut</b><br>The distance between highest & lowest strings at the nut. (Measured perpendicularlly on multiscale layouts)">?</div>
+				</label>
 				<input type="number" value="1.375" step="any" min="0" required id="swn">
-				<label for="">String width at bridge</label>
+				<label for="">String width at bridge
+					<div class="tip" data-tip="<b>String Width at Bridge</b><br>The distance between highest & lowest strings at the bridge. (Measured perpendicularlly on multiscale layouts)">?</div>
+				</label>
 				<input type="number" value="2.125" step="any" min="0" required id="swb">
-				<label for="">Overhang at nut</label>
+				<label for="">Overhang at nut
+					<div class="tip" data-tip="<b>Overhang At Nut</b><br>How much the fretboard extends beyond the strings on one side at the nut.">?</div>
+				</label>
 				<input type="number" value="0.09375" step="any" min="0" required id="son">
-				<label for="">Overhang at bridge</label>
+				<label for="">Overhang at bridge
+					<div class="tip" data-tip="<b>Overhang At Bridge</b><br>How much the fretboard extends beyond the strings on one side at the bridge.">?</div>
+				</label>
 				<input type="number" value="0.09375"  step="any" min="0" required id="sob">
 			<h2>Quantities</h2>
 				<label for="">Frets</label>
@@ -64,22 +75,14 @@
 			</svg>
 		</div>
 		<div class="right-sidebar">
-			<h2>Tests</h2>
-			<ul>
-				<li>FS > LS, Perp 0, ON > OB</li>
-				<li>FS > LS, Perp 0, ON < OB</li>
-				<li>LS > FS, Perp 0, ON > OB</li>
-				<li>LS > FS, Perp 0, ON < OB</li>
-				<li>FS > LS, Perp 1, ON > OB</li>
-				<li>LS > FS, Perp 1, ON < OB</li>
-			</ul>
+			» Fix nut overhang larger than bridge overhang<br>
+			» URL formatting<br>
+			» Saving<br>
+			» Plain print version
 			<a href="#" class="button button-secondary">Link to current design</a>
 			<a href="#" class="button button-secondary">Printable Version</a>
 			<a href="#" class="button button-primary">Download SVG</a>
 		</div>
 </div>
-
-
-	
 </body>
 </html>
