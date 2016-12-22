@@ -173,19 +173,29 @@ $(document).ready(function(){
 		$('.result').html($('.result').html());
 	}
 
-	function show_svg(evt) {
-	    var svg = document.getElementById("render");
-	    var serializer = new XMLSerializer();
-	    var svg_blob = new Blob([serializer.serializeToString(svg)],
-	                            {'type': "image/svg+xml"});
-	    var url = URL.createObjectURL(svg_blob);
-
-	    var svg_win = window.open(url, "svg_win");
-	}
-
-	$('.save').on('click', function(){
-		show_svg();
+	$("#printable").on("click", function () {
+		var w = window.open();
+		var content = $('.result').html();
+		$(w.document.body).html(content);
 	});
+
+	$("#download").on("click", function () {
+		var content = $('.result').html();
+		downloadFile("fretboard.svg", content);
+	});
+
+	var downloadFile = function(filename, content) {
+		var blob = new Blob([content]);
+		var event = new MouseEvent('click', {
+		'view': window,
+		'bubbles': true,
+		'cancelable': true
+		});
+		var a = document.createElement("a");
+		a.download = filename;
+		a.href = URL.createObjectURL(blob);
+		a.dispatchEvent(event);
+	};
 
 	/* Modal stuff */
 	$('.tip').on('click', function(){
