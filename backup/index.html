@@ -31,55 +31,43 @@
 				</label>
 				-->
 			<h2>Scale</h2>
-
 				<label for="">
-					Top String Scale
-					<div class="tip" data-tip="<b>Top String</b><br>This is the scale length (measurement from nut to bridge) of the top string. (Typically the thickest, lowest sounding string.)">?</div>
+					First String
+					<div class="tip" data-tip="<b>First String</b><br>This is the scale length (nut to bridge) of the first string. (Typically the thickest, lowest sounding string.)">?</div>
 				</label>
-				<input type="number" value="10" step="0.5" required id="top-scale">
-
+				<input type="number" value="9" step="0.5" required id="scale1">
 				<label for="">
-					Bottom String Scale
-					<div class="tip" data-tip="<b>Bottom String</b><br>This is the scale length (measurement from nut to bridge) of the bottom string. (Typically the thinnest, highest sounding string.)">?</div>
+					Last String
+					<div class="tip" data-tip="<b>Last String</b><br>This is the scale length (nut to bridge) of the last string. (Typically the thinnest, highest sounding string.)">?</div>
 				</label>
-				<input type="number" value="10" step="0.5" required id="bottom-scale">
-
+				<input type="number" value="5" step="0.5" required id="scale2">
 				<label for="">
 					Perpendicular Distance
 					<div class="tip" data-tip="<b>Perpendicular Distance (0 - 1)</b><br>Only used in multi-scale layouts, this is the fret which is at a 90° angle to the fretboard. <br><br>Use a value of 0 to make the nut flat, or 1 to make the bridge flat. A value of .5 will make the middle of the fretboard perpendicular.">?</div>
 				</label>
-				<input type="number" value="1" max="1" step="0.001" required id="perp-distance">
-
+				<input type="number" value="1" max="1" step="0.001" required id="perp">
 			<h2>Overall Size</h2>
-
-				<label for="">Neck Width at Nut
-					<div class="tip" data-tip="<b>Neck Width at Nut</b><br>Neck thickness at the nut. (Measured perpendicularlly on multiscale layouts)">?</div>
+				<label for="">String width at nut
+					<div class="tip" data-tip="<b>String Width at Nut</b><br>The distance between highest & lowest strings at the nut. (Measured perpendicularlly on multiscale layouts)">?</div>
 				</label>
-				<input type="number" value="1.375" step="any" min="0" required id="nut-width">
-
-				<label for="">Neck Width at Bridge
-					<div class="tip" data-tip="<b>Neck Width at Bridge</b><br>Neck thickness at the bridge. (Measured perpendicularlly on multiscale layouts)">?</div>
+				<input type="number" value="1.375" step="any" min="0" required id="swn">
+				<label for="">String width at bridge
+					<div class="tip" data-tip="<b>String Width at Bridge</b><br>The distance between highest & lowest strings at the bridge. (Measured perpendicularlly on multiscale layouts)">?</div>
 				</label>
-				<input type="number" value="2.125" step="any" min="0" required id="bridge-width">
-
-				<label for="">String Width at Nut
-					<div class="tip" data-tip="<b>String Width at Nut</b><br>The distance between highest and lowest strings at the nut (measured perpendicularlly on multiscale layouts)">?</div>
+				<input type="number" value="2.125" step="any" min="0" required id="swb">
+				<label for="">Overhang at nut
+					<div class="tip" data-tip="<b>Overhang At Nut</b><br>How much the fretboard extends beyond the strings on one side at the nut.">?</div>
 				</label>
-				<input type="number" value="1.25" step="any" min="0" required id="string-width-nut">
-
-				<label for="">String Width at Bridge
-					<div class="tip" data-tip="<b>Overhang At Bridge</b><br>The distance between highest and lowest strings at the bridge (measured perpendicularlly on multiscale layouts)">?</div>
+				<input type="number" value="0.09375" step="any" min="0" required id="son">
+				<label for="">Overhang at bridge
+					<div class="tip" data-tip="<b>Overhang At Bridge</b><br>How much the fretboard extends beyond the strings on one side at the bridge.">?</div>
 				</label>
-				<input type="number" value="2"  step="any" min="0" required id="string-width-bridge">
-
+				<input type="number" value="0.09375"  step="any" min="0" required id="sob">
 			<h2>Quantities</h2>
-
 				<label for="">Frets</label>
-				<input type="number" step="1" value="18" required id="fret-count">
-
+				<input type="number" step="1" value="18" required id="fretcount">
 				<label for="">Strings</label>
-				<input type="number" step="1" value="6" required id="string-count">
-
+				<input type="number" step="1" value="6" required id="stringcount">
 			</form>
 		</div>
 		<div class="result">
