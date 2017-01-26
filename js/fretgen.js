@@ -1,73 +1,94 @@
 $(document).ready(function(){
 
-	/* RUN THE FUNCTION
+	/* RUN ON INPUT
 	==============================================================*/
-	drawFrets();
+	drawFretboard();
 	$("#input input").on('change keyup paste', function () {
-		if ($('#input')[0].checkValidity()) {
-			drawFrets();
+
+		// Make sure strings aren't wider than the board
+		var nutWidth = $('#nut-width').val(),
+				bridgeWidth = $('#bridge-width').val(),
+				stringWidthNut = $('#string-width-nut').val(),
+				stringWidthBridge = $('#string-width-bridge').val();
+		if (nutWidth < stringWidthNut || bridgeWidth < stringWidthBridge) {
+			$('.result').addClass('invalid-fretboard');
+		// Check if form is valid
+		} else if ($('#input')[0].checkValidity()){
+			drawFretboard();
 			$('.invalid-fretboard').removeClass('invalid-fretboard');
+		// If form is not valid...
 		} else {
 			$('.result').addClass('invalid-fretboard');
 		}
 	});
 
-	function drawFrets(){
+	/* DRAW FRETBOARD FUNCTION
+	==============================================================*/
+	function drawFretboard(){
 		// Clear previous render
 		$('#render').empty();
 		// Get user input
 		var ratio = 90,
-			topScale = $('#top-scale').val() * ratio,
-			bottomScale = $('#bottom-scale').val() * ratio,
-			perpDistance = $('#perp-distance').val() * ratio,
-			nutWidth = $('#nut-width').val() * ratio,
-			bridgeWidth = $('#bridge-width').val() * ratio,
-			stringWidthNut = $('#string-width-nut').val() * ratio,
-			stringWidthBridge = $('#string-width-bridge').val() * ratio,
-			fretCount = $('#fret-count').val() * ratio,
-			stringCount = $('#string-count').val() * ratio,
+			firstScale = $('#top-scale').val(),
+			lastScale = $('#bottom-scale').val(),
+			perpDistance = $('#perp-distance').val(),
+			nutWidth = $('#nut-width').val(),
+			bridgeWidth = $('#bridge-width').val(),
+			stringWidthNut = $('#string-width-nut').val(),
+			stringWidthBridge = $('#string-width-bridge').val(),
+			fretCount = $('#fret-count').val(),
+			stringCount = $('#string-count').val(),			
+			stringSpaceNut = stringWidthNut / (stringCount - 1),
+			stringSpaceBridge = stringWidthBridge / (stringCount - 1),
 			width = Math.max(nutWidth, bridgeWidth),
-			center = width / 2;
+			center = width / 2,
 			perpOffset = perpDistance * Math.abs(nutWidth - bridgeWidth),
-			height = Math.max(topScale, bottomScale) + (perpOffset);
+			/*Set this to the actual height later */
+			height = Math.max(firstScale, lastScale);
 
-
-		/* FRETBOARD EDGES
-		==============================================================*/
-		var leftX1 = center - (nutWidth / 2),
-			leftX2 = center - (bridgeWidth / 2),
-			rightX1 = center + (nutWidth / 2),
-			rightX2 = center + (bridgeWidth / 2);
-
-		if (topScale == bottomScale || perpDistance == 0) {
-			var leftY1 = 0,
-				leftY2 = topScale,
-				rightY1 = 0,
-				rightY2 = bottomScale;
-		} else if (topScale > bottomScale && perpDistance > 0) {
-			var leftY1 = perpOffset * perpDistance,
-				leftY2 = 100,
-				rightY1 = 0,
-				rightY2 = 100;
-		} else if (topScale < bottomScale) {
-			var leftY1 = 1,
-				leftY2 = 1,
-				rightY1 = 1,
-				rightY2 = 1;
-		}
-
-		$('#render').append('<line class="leftedge" x1 = "'+leftX1+'" y1 = "'+leftY1+'" x2 = "'+leftX2+'" y2 = "'+leftY2+'" stroke = "black" stroke-width = "1"/>');
-		$('#render').append('<line class="rightedge" x1 = "'+rightX1+'" y1 = "'+rightY1+'" x2 = "'+rightX2+'" y2 = "'+rightY2+'" stroke = "black" stroke-width = "1"/>');
+		
 
 		/* CENTER LINE
 		==============================================================*/
+		$('#render').append('<line class="centerline" x1 = "'+center+'" y1 = "0" x2 = "'+center+'" y2 = "'+height+'" stroke = "black" stroke-dasharray=".1, .1"  stroke-width = ".0125"/>');
 
 		/* STRINGS
 		==============================================================*/
+
+		for(var i = 0; i < stringCount; i++) {
+
+			var step = Math.abs(firstScale - lastScale) / (stringCount - 1);
+
+			if (firstScale <= lastScale){
+				var stringLength = (step * i) + Math.min(firstScale, lastScale);
+			} else {
+				var stringLength = Math.max(firstScale, lastScale) - (step * i);
+			}
+			var stringX1 = (i * stringSpaceNut) + (center - (stringWidthNut / 2)),
+					stringY1 = (height - stringLength) * perpDistance,
+					stringX2 = (i * stringSpaceBridge) + (center - (stringWidthBridge / 2)),
+					stringY2 = Math.pow(stringLength + stringY1, 2) - Math.pow(Math.abs(stringX1 - stringX2), 2),
+					stringY2 = Math.sqrt(stringY2);
+
+			$('#render').append('<line class="string" x1 = "'+stringX1+'" y1 = "'+stringY1+'" x2 = "'+stringX2+'" y2 = "'+stringY2+'" stroke = "black" stroke-width = ".0125"/>');
+		}
+
+		/* FRETBOARD EDGES
+		==============================================================*/
+		var leftX1 = 0,
+			leftX2 = 0,
+			leftY1 = 0,
+			leftY2 = 0,
+			rightX1 = 0,
+			rightX2 = 0,
+			rightY1 = 0,
+			rightY2 = 0;
+		$('#render').append('<line class="leftedge" x1 = "'+leftX1+'" y1 = "'+leftY1+'" x2 = "'+leftX2+'" y2 = "'+leftY2+'" stroke = "black" stroke-width = "1"/>');
+		$('#render').append('<line class="rightedge" x1 = "'+rightX1+'" y1 = "'+rightY1+'" x2 = "'+rightX2+'" y2 = "'+rightY2+'" stroke = "black" stroke-width = "1"/>');
+
 	
 		// update viewport
-		$('#render').attr('viewBox','0, 0, '+width+', '+height+'');
-		// Refresh dat page to update SVG
+		$('#render').attr('width',width+'in').attr('height',height+'in').attr('viewBox', '0, 0,' + width + ',' + height);
 		$('.result').html($('.result').html());
 	}
 

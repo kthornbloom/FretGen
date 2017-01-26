@@ -33,22 +33,22 @@
 			<h2>Scale</h2>
 
 				<label for="">
-					Top String Scale
+					First String Scale
 					<div class="tip" data-tip="<b>Top String</b><br>This is the scale length (measurement from nut to bridge) of the top string. (Typically the thickest, lowest sounding string.)">?</div>
 				</label>
-				<input type="number" value="10" step="0.5" required id="top-scale">
+				<input type="number" value="18" step="0.5" required id="top-scale">
 
 				<label for="">
-					Bottom String Scale
+					Last String Scale
 					<div class="tip" data-tip="<b>Bottom String</b><br>This is the scale length (measurement from nut to bridge) of the bottom string. (Typically the thinnest, highest sounding string.)">?</div>
 				</label>
-				<input type="number" value="10" step="0.5" required id="bottom-scale">
+				<input type="number" value="20" step="0.5" required id="bottom-scale">
 
 				<label for="">
 					Perpendicular Distance
 					<div class="tip" data-tip="<b>Perpendicular Distance (0 - 1)</b><br>Only used in multi-scale layouts, this is the fret which is at a 90° angle to the fretboard. <br><br>Use a value of 0 to make the nut flat, or 1 to make the bridge flat. A value of .5 will make the middle of the fretboard perpendicular.">?</div>
 				</label>
-				<input type="number" value="1" max="1" step="0.001" required id="perp-distance">
+				<input type="number" value="0" max="1" step="0.001" required id="perp-distance">
 
 			<h2>Overall Size</h2>
 
@@ -78,7 +78,7 @@
 				<input type="number" step="1" value="18" required id="fret-count">
 
 				<label for="">Strings</label>
-				<input type="number" step="1" value="6" required id="string-count">
+				<input type="number" step="1" value="6" min="2" required id="string-count">
 
 			</form>
 		</div>
@@ -87,10 +87,6 @@
 			</svg>
 		</div>
 		<div class="right-sidebar">
-			» Fix nut overhang larger than bridge overhang<br>
-			» URL formatting<br>
-			» Saving<br>
-			» Plain print version
 			<a href="#" class="button button-secondary" id="linkto">Link to current design</a>
 			<a href="#" class="button button-secondary" id="printable">Printable Version</a>
 			<a href="#" class="button button-primary" id="download">Download SVG</a>

@@ -145,8 +145,10 @@ a.button-secondary:hover {
 
 #render {
 	max-height:95%;
+	width:auto;
 	overflow:visible;
 	transition:.4s;
+	box-shadow:0 0 0 1px rgba(255,255,255,.5);
 }
 
 .invalid-fretboard #render {
