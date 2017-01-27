@@ -75,22 +75,30 @@ $(document).ready(function(){
 
 		/* FRETBOARD EDGES
 		==============================================================*/
-		var leftX1 = 0,
-			leftX2 = 0,
+		var leftX1 = (width / 2) - (nutWidth /2),
+			leftX2 = (width / 2) - (bridgeWidth /2),
 			leftY1 = 0,
-			leftY2 = 0,
-			rightX1 = 0,
-			rightX2 = 0,
+			leftY2 = 10,
+			rightX1 = (width / 2) + (nutWidth /2),
+			rightX2 = (width / 2) + (bridgeWidth /2),
 			rightY1 = 0,
-			rightY2 = 0;
-		$('#render').append('<line class="leftedge" x1 = "'+leftX1+'" y1 = "'+leftY1+'" x2 = "'+leftX2+'" y2 = "'+leftY2+'" stroke = "black" stroke-width = "1"/>');
-		$('#render').append('<line class="rightedge" x1 = "'+rightX1+'" y1 = "'+rightY1+'" x2 = "'+rightX2+'" y2 = "'+rightY2+'" stroke = "black" stroke-width = "1"/>');
+			rightY2 = 10;
+		$('#render').append('<line class="leftedge" x1 = "'+leftX1+'" y1 = "'+leftY1+'" x2 = "'+leftX2+'" y2 = "'+leftY2+'" stroke = "black" stroke-width = ".0125"/>');
+		$('#render').append('<line class="rightedge" x1 = "'+rightX1+'" y1 = "'+rightY1+'" x2 = "'+rightX2+'" y2 = "'+rightY2+'" stroke = "black" stroke-width = ".0125"/>');
 
 	
 		// update viewport
 		$('#render').attr('width',width+'in').attr('height',height+'in').attr('viewBox', '0, 0,' + width + ',' + height);
 		$('.result').html($('.result').html());
 	}
+
+	/* CLICKY STUFF
+	==============================================================*/
+	$(document).on('click','#zoom-toggle', function(e){
+		e.preventDefault();
+		$(this).toggleClass('toggle-on');
+		$('#render').toggleClass('render-fit');
+	});
 
 	$("#printable").on("click", function () {
 		var w = window.open();
@@ -117,7 +125,7 @@ $(document).ready(function(){
 	};
 
 	/* Modal stuff */
-	$('.tip').on('click', function(){
+	$('.tip, .beta').on('click', function(){
 		var info = $(this).attr('data-tip');
 		$('body').append('<div class="modal-wrap"><div class="modal">'+info+'<br><a href="#" class="button button-primary close-modal">OK</div></div></div>');
 		$('.modal-wrap').offset();

@@ -18,7 +18,7 @@
 <div class="wrapper">
 	<div class="left-sidebar">
 		<form id="input">
-			<h1>Settings</h1>
+			<h1>FRETGEN <a href="#" class="beta" data-tip="<b>BETA VERSION</b><br>This software is not fully functional. Use at your own risk!">BETA</a></h1>
 			<!--
 			<h2>Units</h2>
 				<label class="half-width">
@@ -44,12 +44,6 @@
 				</label>
 				<input type="number" value="20" step="0.5" required id="bottom-scale">
 
-				<label for="">
-					Perpendicular Distance
-					<div class="tip" data-tip="<b>Perpendicular Distance (0 - 1)</b><br>Only used in multi-scale layouts, this is the fret which is at a 90° angle to the fretboard. <br><br>Use a value of 0 to make the nut flat, or 1 to make the bridge flat. A value of .5 will make the middle of the fretboard perpendicular.">?</div>
-				</label>
-				<input type="number" value="0" max="1" step="0.001" required id="perp-distance">
-
 			<h2>Overall Size</h2>
 
 				<label for="">Neck Width at Nut
@@ -72,12 +66,24 @@
 				</label>
 				<input type="number" value="2"  step="any" min="0" required id="string-width-bridge">
 
-			<h2>Quantities</h2>
+			<h2>Frets & Strings</h2>
 
-				<label for="">Frets</label>
+				<label for="">
+					Fret Count
+					<div class="tip" data-tip="<b>Fret Count</b><br>The number of frets in your design. The nut position is not included in this count. (duh)">?</div>
+				</label>
 				<input type="number" step="1" value="18" required id="fret-count">
 
-				<label for="">Strings</label>
+				<label for="">
+					Perpendicular Fret
+					<div class="tip" data-tip="<b>Perpendicular Fret (0 - 1)</b><br>Only used in multi-scale layouts, this is the fret which is at a 90° angle. <br><br>Use a value of 0 to make the nut flat, or 1 to make the bridge flat. A value of .5 will make the middle of the fretboard perpendicular.">?</div>
+				</label>
+				<input type="number" value="1" max="1" step="0.001" required id="perp-distance">
+
+				<label for="">
+					String Count
+					<div class="tip" data-tip="<b>String Count</b><br>The number of strings on your instrument.">?</div>
+				</label>
 				<input type="number" step="1" value="6" min="2" required id="string-count">
 
 			</form>
@@ -85,6 +91,7 @@
 		<div class="result">
 			<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100"  id="render">
 			</svg>
+			<a href="#" id="zoom-toggle"><span></span></a>
 		</div>
 		<div class="right-sidebar">
 			<a href="#" class="button button-secondary" id="linkto">Link to current design</a>
