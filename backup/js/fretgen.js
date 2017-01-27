@@ -175,12 +175,12 @@ $(document).ready(function(){
 
 	$("#printable").on("click", function () {
 		var w = window.open();
-		var content = $('.result').html();
+		var content = $('#render').html();
 		$(w.document.body).html(content);
 	});
 
 	$("#download").on("click", function () {
-		var content = $('.result').html();
+		var content = $('#render').html();
 		downloadFile("fretboard.svg", content);
 	});
 
